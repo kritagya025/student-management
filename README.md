@@ -11,6 +11,7 @@ I built this small project to practice what I learned.
 
 - GET `/students` — returns all students
 - GET `/students/{id}` — returns one student by ID
+- POST `/students` — add a new student
 
 ---
 
@@ -40,9 +41,9 @@ http://localhost:8080/students
 
 ```json
 [
-  { "id": 1, "name": "Kritagya Yadav",  "email": "ky@gmail.com", "department": "Computer Science" },
-  { "id": 2, "name": "Mukul Dubey",   "email": "md@gmail.com", "department": "Electronics" },
-  { "id": 3, "name": "Krishna",    "email": "kk@gmail.com",  "department": "Mechanical" }
+  { "id": 1, "name": "Kritagya Yadav", "email": "ky@gmail.com", "department": "Computer Science" },
+  { "id": 2, "name": "Mukul Dubey",    "email": "md@gmail.com", "department": "Electronics" },
+  { "id": 3, "name": "Krishna",        "email": "kk@gmail.com", "department": "Mechanical" }
 ]
 ```
 
@@ -50,7 +51,6 @@ http://localhost:8080/students
 
 ## What I want to add next
 
-- POST — add a new student
 - PUT — update a student
 - DELETE — delete a student
 - Connect to a real database

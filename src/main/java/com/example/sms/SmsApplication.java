@@ -13,11 +13,12 @@ import java.util.List;
 public class SmsApplication {
 
     private List<Student> students = new ArrayList<>();
+    private int nextId = 4;
 
     public SmsApplication() {
-        students.add(new Student(1, "Kritagya Yadav",  "ky@gmail.com",  "Computer Science"));
-        students.add(new Student(2, "Mukul Dubey",   "md@gmail.com",  "Electronics"));
-        students.add(new Student(3, "Krishna",    "kk@gmail.com",   "Mechanical"));
+        students.add(new Student(1, "Kritagya Yadav", "ky@gmail.com", "Computer Science"));
+        students.add(new Student(2, "Mukul Dubey",    "md@gmail.com", "Electronics"));
+        students.add(new Student(3, "Krishna",        "kk@gmail.com", "Mechanical"));
     }
 
     @GetMapping
@@ -31,6 +32,13 @@ public class SmsApplication {
             if (s.getId() == id) return s;
         }
         return null;
+    }
+
+    @PostMapping
+    public Student add(@RequestBody Student student) {
+        student.setId(nextId++);
+        students.add(student);
+        return student;
     }
 
     public static void main(String[] args) {
