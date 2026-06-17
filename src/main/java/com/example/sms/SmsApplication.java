@@ -41,6 +41,25 @@ public class SmsApplication {
         return student;
     }
 
+    @PutMapping("/{id}")
+    public Student update(@PathVariable int id, @RequestBody Student updatedStudent) {
+        for (Student s : students) {
+            if (s.getId() == id) {
+                s.setName(updatedStudent.getName());
+                s.setEmail(updatedStudent.getEmail());
+                s.setDepartment(updatedStudent.getDepartment());
+                return s;
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable int id) {
+        students.removeIf(s -> s.getId() == id);
+        return "Student with id " + id + " deleted";
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(SmsApplication.class, args);
     }
