@@ -2,6 +2,8 @@ package com.example.sms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,11 +29,13 @@ public class SmsApplication {
     }
 
     @GetMapping("/{id}")
-    public Student getOne(@PathVariable int id) {
+    public ResponseEntity<?> getOne(@PathVariable int id) {
         for (Student s : students) {
-            if (s.getId() == id) return s;
+            if (s.getId() == id) {
+                return ResponseEntity.ok(s);
+            }
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with id: " + id);
     }
 
     @PostMapping
@@ -42,22 +46,25 @@ public class SmsApplication {
     }
 
     @PutMapping("/{id}")
-    public Student update(@PathVariable int id, @RequestBody Student updatedStudent) {
+    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Student updatedStudent) {
         for (Student s : students) {
             if (s.getId() == id) {
                 s.setName(updatedStudent.getName());
                 s.setEmail(updatedStudent.getEmail());
                 s.setDepartment(updatedStudent.getDepartment());
-                return s;
+                return ResponseEntity.ok(s);
             }
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with id: " + id);
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable int id) {
-        students.removeIf(s -> s.getId() == id);
-        return "Student with id " + id + " deleted";
+    public ResponseEntity<?> delete(@PathVariable int id) {
+        boolean removed = students.removeIf(s -> s.getId() == id);
+        if (removed) {
+            return ResponseEntity.ok("Student with id " + id + " deleted");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found with id: " + id);
     }
 
     public static void main(String[] args) {
