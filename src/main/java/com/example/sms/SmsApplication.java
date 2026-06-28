@@ -1,5 +1,6 @@
 package com.example.sms;
 
+import jakarta.validation.Valid;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
@@ -39,14 +40,14 @@ public class SmsApplication {
     }
 
     @PostMapping
-    public Student add(@RequestBody Student student) {
+    public Student add(@Valid @RequestBody Student student) {
         student.setId(nextId++);
         students.add(student);
         return student;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable int id, @RequestBody Student updatedStudent) {
+    public ResponseEntity<?> update(@PathVariable int id, @Valid @RequestBody Student updatedStudent) {
         for (Student s : students) {
             if (s.getId() == id) {
                 s.setName(updatedStudent.getName());
