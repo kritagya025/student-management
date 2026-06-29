@@ -2,16 +2,45 @@
 
 My first Spring Boot project.
 
-I just started learning Java and Spring Boot a few days ago.
-I built this small project to practice what I learned.
+I started learning Java and Spring Boot a few weeks ago.
+I built this project step by step to practice what I learned.
 
 ---
 
 ## What it does
 
 - GET `/students` — returns all students
-- GET `/students/{id}` — returns one student by ID
-- POST `/students` — add a new student
+- GET `/students/{id}` — returns one student by ID (404 if not found)
+- POST `/students` — add a new student (with validation)
+- PUT `/students/{id}` — update a student (404 if not found, with validation)
+- DELETE `/students/{id}` — delete a student (404 if not found)
+
+---
+
+## Validation
+
+- Name is required
+- Email is required and must be a valid email format
+- Department is required
+
+If any field is invalid, the API returns a `400 Bad Request` with a clear message for each field:
+
+```json
+{
+  "name": "Name is required",
+  "email": "Email should be valid"
+}
+```
+
+---
+
+## Error Handling
+
+If a student ID does not exist, the API returns a proper `404 Not Found` instead of `null`:
+
+```json
+"Student not found with id: 99"
+```
 
 ---
 
@@ -19,6 +48,7 @@ I built this small project to practice what I learned.
 
 - Java 17
 - Spring Boot 3.2
+- Spring Boot Validation
 - Maven
 
 ---
@@ -51,6 +81,6 @@ http://localhost:8080/students
 
 ## What I want to add next
 
-- PUT — update a student
-- DELETE — delete a student
-- Connect to a real database
+- Connect to a real database (PostgreSQL)
+- Search students by department or name
+- Pagination for the GET all students endpoint
